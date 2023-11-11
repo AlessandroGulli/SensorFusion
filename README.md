@@ -1,2 +1,2 @@
 # SensorFusion
-Udacity Sensor Fusion Course
+A list of projects from my Udacity Sensor Fusion Course
