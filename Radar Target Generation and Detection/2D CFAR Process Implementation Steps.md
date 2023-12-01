@@ -30,4 +30,4 @@
    - Non-thresholded cells at the edge are initialized as 0 in a separate matrix.
    - Only values exceeding the threshold are stored in this matrix.
 
- ![Image 1](CFAR.png){ width=50% height=50% }
+ ![Image 1](CFAR.png)
