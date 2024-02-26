@@ -15,7 +15,7 @@ This involves the downsampling of Lidar data and the exclusion of non-essential 
 ## Installation
 - sudo apt install libpcl-dev
 - cd ~
-- git clone https://github.com/PoChang007/Sensor_Fusion_Nanodegree.git
+- git clone [https://github.com/AlessandroGulli/Lidar Obstacle Detection](https://github.com/AlessandroGulli/SensorFusion/tree/main/Lidar%20Obstacle%20Detection).git
 - cd Lidar_Obstacle_Detection
 - mkdir build && cd build
 - cmake ..
