@@ -1,15 +1,41 @@
-# SFND 2D Feature Tracking
+# 2D Feature Tracking
 
 <img src="images/keypoints.png" width="820" height="248" />
 
-The idea of the camera course is to build a collision detection system - that's the overall goal for the Final Project. As a preparation for this, you will now build the feature tracking part and test various detector / descriptor combinations to see which ones perform best. This mid-term project consists of four parts:
+The project involved the development of a feature tracking system as part of a collision detection system, which was structured into four main phases, each focusing on different aspects of feature tracking and optimization.
 
-* First, you will focus on loading images, setting up data structures and putting everything into a ring buffer to optimize memory load. 
-* Then, you will integrate several keypoint detectors such as HARRIS, FAST, BRISK and SIFT and compare them with regard to number of keypoints and speed. 
-* In the next part, you will then focus on descriptor extraction and matching using brute force and also the FLANN approach we discussed in the previous lesson. 
-* In the last part, once the code framework is complete, you will test the various algorithms in different combinations and compare them with regard to some performance measures. 
+### Phase 1: Setup and Data Management
+- **Achievement:** Established the foundational code structure, including the efficient loading and management of image data.
+- **Actions Taken:**
+  - Images were loaded into the application.
+  - Necessary data structures were set up to hold image data, keypoints, descriptors, etc.
+  - A ring buffer mechanism was implemented to manage and optimize memory usage, ensuring that only a limited number of images were kept in memory at any time.
 
-See the classroom instruction and code comments for more details on each of these parts. Once you are finished with this project, the keypoint matching part will be set up and you can proceed to the next lesson, where the focus is on integrating Lidar points and on object detection using deep-learning. 
+### Phase 2: Keypoint Detection
+- **Achievement:** Integrated and evaluated various keypoint detectors to identify points of interest in images.
+- **Actions Taken:**
+  - Several keypoint detectors, including HARRIS, FAST, BRISK, and SIFT, were integrated.
+  - These detectors were compared based on the number of keypoints they identified and their processing speed.
+  - The strengths and weaknesses of each detector in different image conditions were analyzed.
+
+### Phase 3: Descriptor Extraction and Matching
+- **Achievement:** Extracted descriptors for the identified keypoints and matched them across images using different strategies.
+- **Actions Taken:**
+  - Descriptor extraction was implemented for the keypoints detected in the previous phase.
+  - Two matching techniques were introduced and compared: brute force matching and FLANN (Fast Library for Approximate Nearest Neighbors) based matching.
+  - The effectiveness and efficiency of these matching techniques were evaluated.
+
+### Phase 4: Algorithm Testing and Performance Comparison
+- **Achievement:** Tested various combinations of keypoint detectors and descriptor matchers to find the most effective setup.
+- **Actions Taken:**
+  - A framework was created to test different combinations of keypoint detectors and descriptor matchers.
+  - The performance of each combination was evaluated based on specific metrics, such as match quality, processing time, and memory usage.
+  - The best-performing combinations for different types of images and scenarios were identified.
+
+This approach enabled the development of an efficient and effective feature tracking system, laying the groundwork for the subsequent implementation of a collision detection system.
+
+<img src="images/summary.png" width="1500" height="500" />
+
 
 ## Dependencies for Running Locally
 * cmake >= 2.8

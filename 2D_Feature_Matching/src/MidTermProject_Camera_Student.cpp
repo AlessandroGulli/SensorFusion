@@ -5,7 +5,9 @@
 #include <iomanip>
 #include <vector>
 #include <cmath>
+#include <numeric>
 #include <limits>
+#include <iomanip>
 #include <opencv2/core.hpp>
 #include <opencv2/highgui/highgui.hpp>
 #include <opencv2/imgproc/imgproc.hpp>
@@ -19,8 +21,40 @@
 using namespace std;
 
 /* MAIN PROGRAM */
-int main(int argc, const char *argv[])
+int main(int argc, char *argv[])
 {
+    string detectorType, descriptorType, matcherType, descriptorCategoryType, selectorType;
+
+    for (int i = 1; i < argc; ++i) {
+        string arg = argv[i];
+
+        if ((arg == "--detectorType") && i + 1 < argc) {
+            detectorType = argv[++i];
+        } else if ((arg == "--descriptorType") && i + 1 < argc) {
+            descriptorType = argv[++i];
+        } else if ((arg == "--matcherType") && i + 1 < argc) {
+            matcherType = argv[++i];
+        } else if ((arg == "--descriptorCategoryType") && i + 1 < argc) {
+            descriptorCategoryType = argv[++i];
+        } else if ((arg == "--selectorType") && i + 1 < argc) {
+            selectorType = argv[++i];
+        } else {
+            cerr << "Unknown argument: " << arg << endl;
+            return 1;
+        }
+    }
+
+    // Check if all required arguments were provided
+    if (detectorType.empty() || descriptorType.empty() || matcherType.empty() || descriptorCategoryType.empty() || selectorType.empty()) {
+        cerr << "Usage: " << argv[0] << " --detectorType <value> --descriptorType <value> --matcherType <value> --descriptorCategoryType <value> --selectorType <value>" << endl;
+        return 1;
+    }
+
+    cout << "Detector Type: " << detectorType << endl;
+    cout << "Descriptor Type: " << descriptorType << endl;
+    cout << "Matcher Type: " << matcherType << endl;
+    cout << "Descriptor Category Type: " << descriptorCategoryType << endl;
+    cout << "Selector Type: " << selectorType << endl;
 
     /* INIT VARIABLES AND DATA STRUCTURES */
 
@@ -30,8 +64,8 @@ int main(int argc, const char *argv[])
     // data collection
     vector<int> numKeypoints;
     vector<int> numMatches;
-    vector<int> timeKeypointsDetection;
-    vector<int> timeKeypointsExtraction;
+    vector<double> timeKeypointsDetection;
+    vector<double> timeDescriptorsExtraction;
 
     // camera
     string imgBasePath = dataPath + "images/";
@@ -72,7 +106,7 @@ int main(int argc, const char *argv[])
 
         if (dataBuffer.size() > dataBufferSize)
         {
-            dataBuffer.push_back(frame);
+            dataBuffer.erase(dataBuffer.begin());
         } 
         //// EOF STUDENT ASSIGNMENT
         cout << "#1 : LOAD IMAGE INTO BUFFER done" << endl;
@@ -81,8 +115,7 @@ int main(int argc, const char *argv[])
 
         // extract 2D keypoints from current image
         vector<cv::KeyPoint> keypoints; // create empty feature list for current image
-        string detectorType = "SHITOMASI";
-
+        
         //// STUDENT ASSIGNMENT
         //// TASK MP.2 -> add the following keypoint detectors in file matching2D.cpp and enable string-based selection based on detectorType
         //// -> HARRIS, FAST, BRISK, ORB, AKAZE, SIFT
@@ -97,23 +130,23 @@ int main(int argc, const char *argv[])
         }
         else if (detectorType.compare("FAST") == 0)
         {
-            detKeypointsModern(keypoints, imgGray, timeKeypointsDetection, false);
+            detKeypointsModern(keypoints, imgGray, "FAST", timeKeypointsDetection, false);
         }
         else if (detectorType.compare("BRISK") == 0)
         {
-            detKeypointsModern(keypoints, imgGray, timeKeypointsDetection, false);
+            detKeypointsModern(keypoints, imgGray, "BRISK", timeKeypointsDetection, false);
         }
         else if (detectorType.compare("ORB") == 0)
         {
-            detKeypointsModern(keypoints, imgGray, timeKeypointsDetection, false);
+            detKeypointsModern(keypoints, imgGray, "ORB", timeKeypointsDetection, false);
         }
         else if (detectorType.compare("AKAZE") == 0)
         {
-            detKeypointsModern(keypoints, imgGray, timeKeypointsDetection, false);
+            detKeypointsModern(keypoints, imgGray, "AKAZE", timeKeypointsDetection, false);
         }
         else if (detectorType.compare("SIFT") == 0)
         {
-            detKeypointsModern(keypoints, imgGray, timeKeypointsDetection, false);
+            detKeypointsModern(keypoints, imgGray, "SIFT", timeKeypointsDetection, false);
         }
         else
         {
@@ -132,7 +165,7 @@ int main(int argc, const char *argv[])
             vector<cv::KeyPoint> keypointFiltered;
             for (auto &keypoint:keypoints)
             {
-                if (vehicleRect.contains(keypoint))
+                if (vehicleRect.contains(keypoint.pt))
                 {
                     keypointFiltered.push_back(keypoint);
                 }
@@ -143,8 +176,8 @@ int main(int argc, const char *argv[])
 
         numKeypoints.push_back(keypoints.size());
 
-        cout << detectorType << " Number of keypoints: " << keypoint.size() << "keypoints" << endl;
-        num
+        cout << detectorType << " Number of keypoints: " << keypoints.size() << "keypoints" << endl;
+
 
         //// EOF STUDENT ASSIGNMENT
 
@@ -173,7 +206,7 @@ int main(int argc, const char *argv[])
         //// -> BRIEF, ORB, FREAK, AKAZE, SIFT
 
         cv::Mat descriptors;        
-        descKeypoints((dataBuffer.end() - 1)->keypoints, (dataBuffer.end() - 1)->cameraImg, descriptors, descriptorType, timeDescriptorExtraction);
+        descKeypoints((dataBuffer.end() - 1)->keypoints, (dataBuffer.end() - 1)->cameraImg, descriptors, descriptorType, timeDescriptorsExtraction);
         //// EOF STUDENT ASSIGNMENT
 
         // push descriptors for current frame to end of data buffer
@@ -187,10 +220,7 @@ int main(int argc, const char *argv[])
             /* MATCH KEYPOINT DESCRIPTORS */
 
             vector<cv::DMatch> matches;
-            string matcherType = "MAT_BF";        // MAT_BF, MAT_FLANN
-            string descriptorType = "DES_BINARY"; // DES_BINARY, DES_HOG
-            string selectorType = "SEL_NN";       // SEL_NN, SEL_KNN
-
+    
             //// STUDENT ASSIGNMENT
             //// TASK MP.5 -> add FLANN matching in file matching2D.cpp
             //// TASK MP.6 -> add KNN match selection and perform descriptor distance ratio filtering with t=0.8 in file matching2D.cpp
@@ -229,25 +259,39 @@ int main(int argc, const char *argv[])
 
     } // eof loop over all images
 
-
-    cout << "Overall Results" << endl;
-    cout << "Number of Keypoints" << endl;
+    cout << std::setprecision(2) << std::fixed;
+    cout << " ---- Summary ----" << endl;
+    cout << "Number of Keypoints Macthed" << endl;
+    for (int keypoint: numKeypoints)
+    {
+        cout << keypoint << ",";
+    }
+    cout << endl;
+    cout << "Number of Keypoints Macthed" << endl;
     for (int matches: numMatches)
     {
         cout << matches << ",";
     }
     cout << endl;
-    cout << "Detection Times" << endl;
-    for (double time: timeKeypointsDetection)
+    cout << "Keypoint Detection Times: " << endl;
+    for (double timeKeypointDetection : timeKeypointsDetection)
     {
-        cout << time << ",";
+        cout << timeKeypointDetection << ", ";
     }
     cout << endl;
-    cout << "Extraction Times" << endl;
-    for (double time: timeKeypointsExtraction)
+    cout << "Average Detection Time" << endl;
+    cout << std::setprecision(2) << std::fixed;
+    cout << std::accumulate(timeKeypointsDetection.begin(), timeKeypointsDetection.end(), 0.0)/timeKeypointsDetection.size()  << " ms" << ",";
+    cout << endl;
+    cout << "Keypoint Description Times: " << endl;
+    for (double timeDescriptorExtraction : timeDescriptorsExtraction)
     {
-        cout << time << ",";
+        cout << timeDescriptorExtraction << ", ";
     }
+    cout << endl;
+    cout << "Average Extraction Time" << endl;
+    cout << std::setprecision(2) << std::fixed;
+    cout << std::accumulate(timeDescriptorsExtraction.begin(), timeDescriptorsExtraction.end(), 0.0)/timeDescriptorsExtraction.size()  << " ms" << ",";
     cout << endl;
 
 
