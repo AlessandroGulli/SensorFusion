@@ -8,12 +8,12 @@ In the image referenced below, the green path represents the predicted path by t
 
 <img src="media/ukf_highway_tracked.gif" width="700" height="400" />
 
-# 
+# Predict Step
 <img src="images/ukf_prediction1.png" width="700" height="400" />
 
 <img src="images/ukf_prediction2.png" width="700" height="400" />
 
-#
+# Update Step
 
 <img src="images/ukf_update1.png" width="700" height="400" />
 
