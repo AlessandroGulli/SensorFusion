@@ -18,6 +18,7 @@ In the image referenced below, the green path represents the predicted path by t
 <img src="images/ukf_update1.png" width="700" height="400" />
 
 <img src="images/ukf_update2.png" width="700" height="400" />
+
 #
 The main program can be built and ran by doing the following from the project top directory.
 
