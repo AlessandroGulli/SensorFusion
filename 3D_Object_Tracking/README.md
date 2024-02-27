@@ -1,5 +1,13 @@
 # Camera Sensor Fusion
 
+<img src="images/time_to_collision_with_keypt_match_gif.gif" width="1000" height="400" />
+
+ Utilizing the YOLO v3 Object Recognition framework, potential targets were identified and assigned bounding boxes. 
+ These bounding boxes were then matched between consecutive images using various keypoint detectors and descriptors. A thorough analysis was conducted to assess the accuracy and speed of different combinations of these tools. 
+ In the example provided, the Shi-Tomasi Detector, paired with the BRIEF Descriptor, was employed. The **Time-To-Collision (TTC)** value was determined using either Lidar data or camera-based keypoint information. 
+ The keypoint detectors/descriptors explored in this project include **SHI-TOMASI**, **HARRIS**, **FAST**, **BRISK**, **ORB**, **AKAZE**, and **SIFT**.
+
+
 <img src="images/course_code_structure.png" width="1000" height="500" />
 
 ## FP.1 Match 3D Objects
