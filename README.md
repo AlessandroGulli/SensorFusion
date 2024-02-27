@@ -11,3 +11,4 @@ A list of projects from my Sensor Fusion Engineer course
 * [2D Feature Matching](https://github.com/AlessandroGulli/SensorFusion/tree/main/2D_Feature_Matching)
 * [3D Object Tracking](https://github.com/AlessandroGulli/SensorFusion/tree/main/3D_Object_Tracking)
 * [Radar Detection](https://github.com/AlessandroGulli/SensorFusion/tree/main/Radar%20Target%20Generation%20and%20Detection)
+* [Unscented Kalman Filter](https://github.com/AlessandroGulli/SensorFusion/tree/main/Unscented_Kalman_Filter)
