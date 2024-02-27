@@ -1,5 +1,7 @@
 ## 2D CFAR Process Implementation Steps
 
+**Fast Fourier Transform** was performed twice on readings given by the **Frequency Modulated Continuous Wave (FMCW) Radar** to obtain the **Range-Doppler Map**.  Furthermore, **Cell Averaging Constant Fast Alarm Rate (CA - CFAR)** was conducted to dynamically filter out noise and to retrieve the peak corresponding to the obstacle. From the image below, one can deduce that the obstacle has a displacement of 110m and a velocity of -20m/s.
+
 1. **Determine Training and Guard Cells:**
    - Select the number of Training cells for each dimension.
    - Choose the number of Guard cells.
