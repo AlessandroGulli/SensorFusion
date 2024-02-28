@@ -14,7 +14,7 @@ The project involved the development of a feature tracking system as part of a c
 ### Phase 2: Keypoint Detection
 - **Achievement:** Integrated and evaluated various keypoint detectors to identify points of interest in images.
 - **Actions Taken:**
-  - Several keypoint detectors, including HARRIS, FAST, BRISK, and SIFT, were integrated.
+  - Several keypoint detectors, including **HARRIS**, **FAST**, **BRISK**, and **SIFT**, were integrated.
   - These detectors were compared based on the number of keypoints they identified and their processing speed.
   - The strengths and weaknesses of each detector in different image conditions were analyzed.
 
@@ -22,7 +22,7 @@ The project involved the development of a feature tracking system as part of a c
 - **Achievement:** Extracted descriptors for the identified keypoints and matched them across images using different strategies.
 - **Actions Taken:**
   - Descriptor extraction was implemented for the keypoints detected in the previous phase.
-  - Two matching techniques were introduced and compared: brute force matching and FLANN (Fast Library for Approximate Nearest Neighbors) based matching.
+  - Two matching techniques were introduced and compared: brute force matching and **FLANN (Fast Library for Approximate Nearest Neighbors)** based matching.
   - The effectiveness and efficiency of these matching techniques were evaluated.
 
 ### Phase 4: Algorithm Testing and Performance Comparison
