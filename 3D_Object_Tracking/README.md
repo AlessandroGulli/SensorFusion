@@ -64,7 +64,7 @@
 ##
 
 
-![Image 3](./images/summary.png){ width=50% height=50% }
+![Image 3](./images/summary.png)
      
 
 
