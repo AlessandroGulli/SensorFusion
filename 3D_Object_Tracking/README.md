@@ -32,7 +32,7 @@
 
 
      ![Image 1](./images/Ex1.png){ width=50% height=50% }
-     ![Image 2](./images/ex2.png){ width=50% height=50% }
+     ![Image 2](./images/ex2.png)
 
 
   2. The Broken Velocity Model: 
