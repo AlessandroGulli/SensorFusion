@@ -1,4 +1,4 @@
-# SFND_Unscented_Kalman_Filter
+# Unscented Kalman Filter
 The **Unscented Kalman Filter** takes in noisy measurement data as input and provides a robust estimation of displacement and velocity values of obstacles. 
 
 <img src="images/CTVR.png" width="700" height="400" />
